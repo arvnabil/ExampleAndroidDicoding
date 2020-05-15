@@ -18,7 +18,7 @@ class MoveWithData : AppCompatActivity() {
         val age = intent.getIntExtra(EXTRA_AGE, 0)
 
         val text = "Name : $name, Your Age : $age"
-        tv_data_received.text = text
+        tvMoveWithData.text = text
     }
 
     companion object {
