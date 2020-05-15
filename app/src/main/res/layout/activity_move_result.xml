@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/bgsatu"
-    tools:context=".Move">
+    tools:context=".MoveResult">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

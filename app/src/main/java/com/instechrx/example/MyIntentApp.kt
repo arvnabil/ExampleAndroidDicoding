@@ -1,12 +1,21 @@
 package com.instechrx.example
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MyIntentApp : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var tvResult: TextView
+
+    companion object {
+        private const val REQUEST_CODE = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +29,14 @@ class MyIntentApp : AppCompatActivity(), View.OnClickListener {
 
         val btnMoveWithObject: Button = findViewById(R.id.btn_move_activity_object)
         btnMoveWithObject.setOnClickListener(this)
+        
+        val  btnDialPhone: Button = findViewById(R.id.btn_dial_number)
+        btnDialPhone.setOnClickListener(this)
+
+        val btnMoveResult: Button = findViewById(R.id.btn_move_for_result)
+        btnMoveResult.setOnClickListener(this)
+
+        tvResult = findViewById(R.id.tv_result)
     }
 
     override fun onClick(v: View) {
@@ -45,6 +62,25 @@ class MyIntentApp : AppCompatActivity(), View.OnClickListener {
                 val moveWithObjectIntent = Intent(this@MyIntentApp, MoveWithObject::class.java)
                 moveWithObjectIntent.putExtra(MoveWithObject.EXTRA_PERSON, person)
                 startActivity(moveWithObjectIntent)
+            }
+            R.id.btn_dial_number -> {
+                val phoneNumber = "087881049696"
+                val dialPhoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+                startActivity(dialPhoneIntent)
+            }
+            R.id.btn_move_for_result -> {
+                val moveForResultIntent = Intent(this@MyIntentApp, MoveResult::class.java)
+                startActivityForResult(moveForResultIntent, REQUEST_CODE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == MoveResult.RESULT_CODE) {
+                val selectedValue = data?.getIntExtra(MoveResult.EXTRA_SELECTED_VALUE, 0)
+                tv_result.text = "Hasil : $selectedValue"
             }
         }
     }
