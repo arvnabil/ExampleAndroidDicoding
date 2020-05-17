@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnCalculate: Button
     private lateinit var btnNext: Button
     private lateinit var tvResult: TextView
+    private lateinit var btnExList: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +33,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tvResult = findViewById(R.id.tv_result)
 
         btnNext = findViewById(R.id.btn_next)
+        btnExList = findViewById(R.id.btn_ex_list)
 
         btnCalculate.setOnClickListener(this)
 
         btnNext.setOnClickListener(this)
+        btnExList.setOnClickListener(this)
 
         if(savedInstanceState != null) {
             val result = savedInstanceState.getString(STATE_RESULT) as String
@@ -74,6 +77,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.btn_next -> {
                 val moveIntent = Intent(this@MainActivity, MyIntentApp::class.java)
+                startActivity(moveIntent)
+            }
+            R.id.btn_ex_list -> {
+                val moveIntent = Intent(this@MainActivity, MyListView::class.java)
                 startActivity(moveIntent)
             }
         }

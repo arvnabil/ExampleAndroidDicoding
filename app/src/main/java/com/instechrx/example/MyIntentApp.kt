@@ -37,6 +37,9 @@ class MyIntentApp : AppCompatActivity(), View.OnClickListener {
         btnMoveResult.setOnClickListener(this)
 
         tvResult = findViewById(R.id.tv_result)
+
+        val btnNext : Button = findViewById(R.id.btn_example_frag)
+        btnNext.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -71,6 +74,10 @@ class MyIntentApp : AppCompatActivity(), View.OnClickListener {
             R.id.btn_move_for_result -> {
                 val moveForResultIntent = Intent(this@MyIntentApp, MoveResult::class.java)
                 startActivityForResult(moveForResultIntent, REQUEST_CODE)
+            }
+            R.id.btn_example_frag -> {
+                val nextExampleIntent = Intent(this@MyIntentApp, MyFlexibleFragment::class.java)
+                startActivity(nextExampleIntent)
             }
         }
     }
